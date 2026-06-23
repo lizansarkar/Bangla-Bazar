@@ -2,22 +2,49 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Star, ShieldCheck, ChevronRight, Plus, Minus, Heart, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCartStore } from "@/store/cartStore";
+
+const MOCK_IMAGES = [
+  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80",
+  "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+  "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80",
+  "https://images.unsplash.com/photo-1598327105666-5b89351cb31b?w=800&q=80",
+];
 
 export default function ProductDetailsPage({ params }: { params: { id: string } }) {
   const [quantity, setQuantity] = useState(1);
+  const [activeImage, setActiveImage] = useState(MOCK_IMAGES[0]);
+  
+  const addItem = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = () => {
+    // Call addItem multiple times if quantity > 1, or modify store to accept quantity directly
+    // Since our store `addItem` omits quantity and adds 1 at a time (or increments if exists),
+    // For simplicity, we loop or just modify store. Our current store increments if exists.
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: params.id,
+        title: "Premium Quantum Series X",
+        price: 1299.00,
+        image: activeImage,
+        category: "ELECTRONICS",
+      });
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8">
       {/* Breadcrumbs */}
       <nav className="flex text-sm text-muted-foreground mb-8">
         <ol className="flex items-center space-x-2">
-          <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
+          <li><Link href="/" className="hover:text-primary transition-colors cursor-pointer">Home</Link></li>
           <li><ChevronRight className="h-4 w-4" /></li>
-          <li><a href="/categories/electronics" className="hover:text-primary transition-colors">Electronics</a></li>
+          <li><Link href="/categories/electronics" className="hover:text-primary transition-colors cursor-pointer">Electronics</Link></li>
           <li><ChevronRight className="h-4 w-4" /></li>
           <li className="text-foreground font-medium">Premium Quantum Series X</li>
         </ol>
@@ -27,15 +54,19 @@ export default function ProductDetailsPage({ params }: { params: { id: string } 
         {/* Left Column: Images */}
         <div className="flex gap-4">
           <div className="hidden sm:flex flex-col gap-4 w-24">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="aspect-square rounded-xl bg-muted overflow-hidden border-2 border-transparent hover:border-primary cursor-pointer transition-colors">
-                <img src={`https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80`} alt={`Thumbnail ${i}`} className="w-full h-full object-cover" />
+            {MOCK_IMAGES.map((img, i) => (
+              <div 
+                key={i} 
+                onClick={() => setActiveImage(img)}
+                className={`aspect-square rounded-xl bg-muted overflow-hidden border-2 cursor-pointer transition-all hover:opacity-80 ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
+              >
+                <img src={img} alt={`Thumbnail ${i}`} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
           <div className="flex-1 bg-slate-900 rounded-3xl aspect-square overflow-hidden relative group">
             <img 
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" 
+              src={activeImage} 
               alt="Premium Quantum Series X" 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 cursor-zoom-in" 
             />
@@ -73,7 +104,7 @@ export default function ProductDetailsPage({ params }: { params: { id: string } 
                   </div>
                 </div>
               </div>
-              <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-white">Follow</Button>
+              <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-white cursor-pointer">Follow</Button>
             </div>
           </Card>
 
@@ -91,7 +122,7 @@ export default function ProductDetailsPage({ params }: { params: { id: string } 
             <div className="flex items-center border rounded-xl h-14 overflow-hidden">
               <button 
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-12 h-full flex items-center justify-center hover:bg-slate-100 transition-colors"
+                className="w-12 h-full flex items-center justify-center hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 <Minus className="h-4 w-4" />
               </button>
@@ -100,16 +131,21 @@ export default function ProductDetailsPage({ params }: { params: { id: string } 
               </div>
               <button 
                 onClick={() => setQuantity(quantity + 1)}
-                className="w-12 h-full flex items-center justify-center hover:bg-slate-100 transition-colors"
+                className="w-12 h-full flex items-center justify-center hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 <Plus className="h-4 w-4" />
               </button>
             </div>
             <div className="flex gap-4 flex-1">
-              <Button size="lg" variant="outline" className="flex-1 h-14 text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white">
+              <Button 
+                onClick={handleAddToCart}
+                size="lg" 
+                variant="outline" 
+                className="flex-1 h-14 text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white cursor-pointer"
+              >
                 Add to Cart
               </Button>
-              <Button size="lg" className="flex-1 h-14 text-lg bg-primary hover:bg-primary/90 text-white shadow-primary/30 shadow-lg border-none">
+              <Button size="lg" className="flex-1 h-14 text-lg bg-primary hover:bg-primary/90 text-white shadow-primary/30 shadow-lg border-none cursor-pointer">
                 Buy Now
               </Button>
             </div>
@@ -134,7 +170,7 @@ export default function ProductDetailsPage({ params }: { params: { id: string } 
               </div>
             </div>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-white gap-2">
+          <Button className="bg-primary hover:bg-primary/90 text-white gap-2 cursor-pointer">
             <MessageSquare className="h-4 w-4" /> Write a Review
           </Button>
         </div>

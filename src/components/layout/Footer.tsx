@@ -47,9 +47,6 @@ export function Footer() {
                 <Button variant="default" className="w-full font-semibold" asChild>
                   <Link href="/auth">Join BanglaBazar</Link>
                 </Button>
-                <Button variant="outline" className="w-full border-slate-600 text-slate-300 hover:text-white hover:bg-slate-700" asChild>
-                  <Link href="/about/escrow">Learn More</Link>
-                </Button>
               </div>
             </div>
           </div>

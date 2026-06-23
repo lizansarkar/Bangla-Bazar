@@ -2,13 +2,33 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ShieldCheck, Truck, Store, User as UserIcon, Mail, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { useAuthStore, type Role } from "@/store/authStore";
 
 export default function AuthPage() {
+  const router = useRouter();
+  const login = useAuthStore((state) => state.login);
   const [activeTab, setActiveTab] = useState<"Customer" | "Seller" | "Delivery">("Customer");
+
+  const handleLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    login(
+      { id: "123", name: `${activeTab} User`, email: "user@example.com", avatar: "" },
+      activeTab as Role
+    );
+    
+    if (activeTab === "Customer") {
+      router.push("/");
+    } else if (activeTab === "Seller") {
+      router.push("/seller/dashboard");
+    } else if (activeTab === "Delivery") {
+      router.push("/seller/logistics");
+    }
+  };
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] w-full flex-col md:flex-row bg-white">
@@ -105,7 +125,11 @@ export default function AuthPage() {
               </div>
             </div>
 
-            <Button type="button" className="w-full h-12 text-base font-bold bg-[#8B5A2B] hover:bg-[#724A24] text-white shadow-lg border-none mt-4 rounded-xl">
+            <Button 
+              type="button" 
+              onClick={handleLogin}
+              className="w-full h-12 text-base font-bold bg-[#8B5A2B] hover:bg-[#724A24] text-white shadow-lg border-none mt-4 rounded-xl cursor-pointer"
+            >
               Sign In as {activeTab}
             </Button>
           </form>
