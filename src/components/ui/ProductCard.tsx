@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
+import { useState } from "react";
 
 export interface ProductProps {
   id: string;
@@ -15,7 +16,8 @@ export interface ProductProps {
   reviews: number;
   image: string;
   category?: string;
-  tag?: "AI TOP PICK" | "NEW ARRIVAL" | "BESTSELLER" | "FLASH SALE";
+  tag?: string;
+  discount?: number;
   storeName?: string;
 }
 
@@ -27,14 +29,23 @@ export function ProductCard({
   rating,
   reviews,
   image,
-  category = "CATEGORY",
+  category = "ক্যাটাগরি",
   tag,
+  discount,
 }: ProductProps) {
   const addItem = useCartStore((state) => state.addItem);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     addItem({ id, title, price, image, category });
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsWishlisted((prev) => !prev);
   };
 
   return (
@@ -42,27 +53,38 @@ export function ProductCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.3 }}
-      className="group flex flex-col w-full h-full cursor-pointer"
+      className="group relative flex flex-col w-full h-full cursor-pointer bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:bg-primary/[0.03] transition-all duration-300 overflow-hidden"
     >
       {/* Image Frame */}
-      <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden mb-4" style={{ backgroundColor: "#BACCCF" }}>
+      <div className="relative aspect-[3/4] w-full overflow-hidden" style={{ backgroundColor: "#BACCCF" }}>
         {/* Wishlist Icon */}
         <div className="absolute top-3 right-3 z-10">
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+            onClick={handleWishlist}
+            className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm hover:bg-white transition-colors cursor-pointer"
           >
-            <Heart className="w-4 h-4" />
+            <Heart
+              className={`w-4 h-4 transition-colors ${
+                isWishlisted ? "fill-red-500 text-red-500" : "text-slate-400"
+              }`}
+            />
           </motion.button>
         </div>
 
-        {/* Tags */}
-        {tag && (
+        {discount && (
           <div className="absolute top-3 left-3 z-10">
-            <span className={`px-2 py-1 text-[10px] font-bold tracking-wider rounded-md text-white shadow-sm ${tag === 'FLASH SALE' ? 'bg-destructive' : 'bg-slate-900'}`}>
+            <span className="px-2 py-1 text-[10px] font-bold tracking-wider rounded-md text-white shadow-sm bg-red-500">
+              -{discount}%
+            </span>
+          </div>
+        )}
+        {tag && !discount && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="px-2 py-1 text-[10px] font-bold tracking-wider rounded-md text-white shadow-sm bg-slate-900">
               {tag}
             </span>
           </div>
@@ -72,48 +94,61 @@ export function ProductCard({
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
           />
         </Link>
 
-        {/* Hover Quick Add Bar */}
-        <div className="absolute bottom-0 left-0 w-full translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20">
-          <div className="bg-slate-900 p-2 flex items-center justify-center">
-            <Button 
+        {/* Add to Cart - slides up on hover */}
+        <motion.div
+          initial={{ y: 60, opacity: 0 }}
+          whileHover={{ y: 0, opacity: 1 }}
+          className="absolute bottom-0 left-0 w-full translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20"
+        >
+          <div className="bg-gradient-to-t from-slate-900/90 via-slate-900/70 to-transparent p-3 pt-6">
+            <Button
               onClick={handleQuickAdd}
-              className="w-full bg-primary hover:bg-primary/90 text-white font-bold tracking-wide rounded-xl cursor-pointer"
+              size="sm"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg"
             >
-              QUICK ADD
+              <ShoppingCart className="w-4 h-4" />
+              কার্টে যোগ করুন
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Content Block */}
-      <Link href={`/products/${id}`} className="flex flex-col items-center text-center flex-1">
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-1.5">
+      <Link href={`/products/${id}`} className="flex flex-col px-3 pb-3 pt-2.5 flex-1">
+        <span className="text-[10px] uppercase tracking-widest text-primary font-semibold mb-1">
           {category}
         </span>
-        
-        <h3 className="text-sm font-bold text-slate-900 line-clamp-2 mb-2 w-full px-2">
+
+        <h3 className="text-sm font-bold text-slate-900 line-clamp-2 mb-2 leading-tight">
           {title}
         </h3>
 
-        <div className="flex items-center justify-center gap-0.5 mb-2.5">
+        <div className="flex items-center gap-0.5 mb-2.5">
           {[1, 2, 3, 4, 5].map((star) => (
-            <Star key={star} className={`w-3.5 h-3.5 ${star <= Math.round(rating) ? 'fill-[#D1A174] text-[#D1A174]' : 'fill-slate-200 text-slate-200'}`} />
+            <Star
+              key={star}
+              className={`w-3 h-3 ${
+                star <= Math.round(rating)
+                  ? "fill-[#D1A174] text-[#D1A174]"
+                  : "fill-slate-200 text-slate-200"
+              }`}
+            />
           ))}
-          <span className="text-xs text-slate-500 ml-1">({reviews})</span>
+          <span className="text-[11px] text-slate-500 ml-1">({reviews})</span>
         </div>
 
-        <div className="mt-auto flex items-center justify-center gap-2">
+        <div className="mt-auto flex items-center gap-2">
           {originalPrice && (
             <span className="text-xs text-slate-400 line-through">
-              ${originalPrice.toFixed(2)}
+               {originalPrice.toFixed(2)}
             </span>
           )}
           <span className="text-base font-extrabold text-slate-900">
-            ${price.toFixed(2)}
+             {price.toFixed(2)}
           </span>
         </div>
       </Link>

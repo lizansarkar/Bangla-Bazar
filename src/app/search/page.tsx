@@ -44,8 +44,8 @@ export default function SearchPage() {
           <Card className="p-6 border-0 shadow-sm ring-1 ring-slate-100">
             <h3 className="font-semibold mb-4 text-slate-900">Price Range</h3>
             <div className="mb-4 text-primary font-semibold text-sm flex justify-between">
-              <span>$0</span>
-              <span>${priceRange}+</span>
+              <span> 0</span>
+              <span> {priceRange}+</span>
             </div>
             <input 
               type="range" 

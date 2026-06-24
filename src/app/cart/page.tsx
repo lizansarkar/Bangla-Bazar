@@ -120,7 +120,7 @@ export default function CartPage() {
                       {item.title}
                     </h3>
                     <p className="text-sm font-semibold text-slate-700 mt-1">
-                      ${item.price.toFixed(2)}
+                       {item.price.toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export default function CartPage() {
                   <div>
                     <span className="md:hidden font-semibold text-slate-700 mr-2">Subtotal:</span>
                     <span className="font-bold text-slate-900">
-                      ${(item.price * item.quantity).toFixed(2)}
+                       {(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                   <button
@@ -220,22 +220,22 @@ export default function CartPage() {
             <div className="space-y-3 text-sm mb-6 pb-6 border-b border-slate-100">
               <div className="flex justify-between text-slate-600">
                 <span>Subtotal</span>
-                <span className="font-medium text-slate-900">${subtotal.toFixed(2)}</span>
+                <span className="font-medium text-slate-900"> {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-slate-600">
                 <span>Shipping</span>
                 <span className="font-medium text-slate-900">
-                  {shipping === 0 ? <span className="text-green-600">Free</span> : `$${shipping.toFixed(2)}`}
+                  {shipping === 0 ? <span className="text-green-600">Free</span> : `  {shipping.toFixed(2)}`}
                 </span>
               </div>
               <div className="flex justify-between text-slate-600">
                 <span>Estimated Tax (8%)</span>
-                <span className="font-medium text-slate-900">${tax.toFixed(2)}</span>
+                <span className="font-medium text-slate-900"> {tax.toFixed(2)}</span>
               </div>
               {promoDiscount > 0 && (
                 <div className="flex justify-between text-green-600">
                   <span>Discount ({promoDiscount}% OFF)</span>
-                  <span className="font-medium">-${discount.toFixed(2)}</span>
+                  <span className="font-medium">- {discount.toFixed(2)}</span>
                 </div>
               )}
             </div>
@@ -244,7 +244,7 @@ export default function CartPage() {
               <span className="text-slate-900 font-bold text-lg">Total Amount</span>
               <div className="text-right">
                 <span className="text-xs text-slate-500 block">Including all taxes</span>
-                <span className="text-3xl font-extrabold text-primary">${total.toFixed(2)}</span>
+                <span className="text-3xl font-extrabold text-primary"> {total.toFixed(2)}</span>
               </div>
             </div>
 

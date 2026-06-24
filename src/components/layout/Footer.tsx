@@ -1,61 +1,149 @@
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Globe, Camera, Video, MessageCircle, MapPin, Phone, Mail, Clock, ChevronRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-slate-900 text-slate-50 mt-auto">
-      <div className="container mx-auto px-4 md:px-6 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-primary">BanglaBazar</h3>
-            <p className="text-sm text-slate-400">
-              Frictionless Commerce for the Digital Age. Securing the future of Bangladeshi Digital Commerce.
+    <footer className="w-full bg-slate-900 text-slate-300 mt-auto">
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand Column */}
+          <div className="space-y-5">
+            <h3 className="text-2xl font-bold text-primary">বাংলাবাজার</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। আমরা নিশ্চিত করি মানসম্মত পণ্য, নিরাপদ লেনদেন ও দ্রুত ডেলিভারি।
             </p>
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                aria-label="Facebook"
+              >
+                <Globe className="w-4 h-4 text-slate-300 hover:text-white" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <Camera className="w-4 h-4 text-slate-300 hover:text-white" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <Video className="w-4 h-4 text-slate-300 hover:text-white" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4 text-slate-300 hover:text-white" />
+              </a>
+            </div>
           </div>
+
+          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Marketplace</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/categories" className="hover:text-primary transition-colors duration-300 cursor-pointer">All Categories</Link></li>
-              <li><Link href="/flash-deals" className="hover:text-primary transition-colors duration-300 cursor-pointer">Flash Deals</Link></li>
-              <li><Link href="/search" className="hover:text-primary transition-colors duration-300 cursor-pointer">Search Products</Link></li>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">দ্রুত লিংক</h4>
+            <ul className="space-y-3">
+              {[
+                { label: "হোম", href: "/" },
+                { label: "অফার", href: "/offers" },
+                { label: "ক্যাটাগরি", href: "/categories" },
+                { label: "আমাদের সম্পর্কে", href: "/about" },
+                { label: "যোগাযোগ", href: "/contact" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-400 hover:text-primary transition-colors duration-300 flex items-center gap-1.5 group"
+                  >
+                    <ChevronRight className="w-3 h-3 text-slate-600 group-hover:text-primary transition-colors" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Customer Service */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Partner with Us</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/auth" className="hover:text-primary transition-colors duration-300 cursor-pointer">Become a Seller</Link></li>
-              <li><Link href="/auth" className="hover:text-primary transition-colors duration-300 cursor-pointer">Delivery Fleet</Link></li>
-              <li><Link href="/seller/dashboard" className="hover:text-primary transition-colors duration-300 cursor-pointer">Seller Dashboard</Link></li>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">গ্রাহক সেবা</h4>
+            <ul className="space-y-3">
+              {[
+                { label: "অর্ডার ট্র্যাক করুন", href: "/track" },
+                { label: "রিটার্ন পলিসি", href: "/returns" },
+                { label: "ডেলিভারি তথ্য", href: "/delivery" },
+                { label: "সচরাচর জিজ্ঞাসা", href: "/faq" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-400 hover:text-primary transition-colors duration-300 flex items-center gap-1.5 group"
+                  >
+                    <ChevronRight className="w-3 h-3 text-slate-600 group-hover:text-primary transition-colors" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          
-          <div className="rounded-2xl bg-slate-800 p-6 border border-slate-700">
-            <div className="flex items-center space-x-3 mb-4">
-              <ShieldCheck className="h-8 w-8 text-primary" />
-              <h4 className="font-semibold text-lg text-slate-100">Escrow Protected</h4>
-            </div>
-            <p className="text-sm text-slate-400 mb-6">
-              Institutional-Grade Security for Every Transaction. Your funds are secured until delivery is confirmed.
-            </p>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-slate-400">Protected Balance:</span>
-                <span className="font-bold text-primary">$14,285.50</span>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button variant="default" className="w-full font-semibold" asChild>
-                  <Link href="/auth">Join BanglaBazar</Link>
-                </Button>
-              </div>
-            </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">যোগাযোগ</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-slate-400">
+                  ১২৩, গুলশান এভিনিউ, ঢাকা-১২১২, বাংলাদেশ
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+                <a href="tel:+8801700000000" className="text-sm text-slate-400 hover:text-primary transition-colors">
+                  +৮৮০ ১৭০০-০০০০০০
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+                <a href="mailto:support@banglabazar.com" className="text-sm text-slate-400 hover:text-primary transition-colors">
+                  support@banglabazar.com
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-sm text-slate-400">
+                  সকাল ৯:০০ - রাত ১০:০০ (সপ্তাহে ৭ দিন)
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-slate-800 text-center text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
-          <p>© {new Date().getFullYear()} BanglaBazar. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-500">
+            © {new Date().getFullYear()} বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।
+          </p>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-slate-500 uppercase tracking-wider">আমরা গ্রহণ করি</span>
+            <div className="flex items-center gap-2">
+              <div className="h-8 px-3 bg-white/10 rounded-md flex items-center justify-center text-xs font-bold text-pink-400">
+                bKash
+              </div>
+              <div className="h-8 px-3 bg-white/10 rounded-md flex items-center justify-center text-xs font-bold text-orange-400">
+                Nagad
+              </div>
+              <div className="h-8 px-3 bg-white/10 rounded-md flex items-center justify-center text-xs font-bold text-blue-400">
+                Visa
+              </div>
+              <div className="h-8 px-3 bg-white/10 rounded-md flex items-center justify-center text-xs font-bold text-yellow-400">
+                MC
+              </div>
+            </div>
           </div>
         </div>
       </div>
