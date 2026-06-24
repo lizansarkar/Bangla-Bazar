@@ -1,42 +1,110 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Laptop, Shirt, Carrot, Sofa, Headphones, HeartPulse, Sparkles, BookOpen } from "lucide-react";
 import Link from "next/link";
 
+// Localized Bangladeshi ecommerce category dataset with relevant cover images
 const CATEGORIES = [
-  { id: "electronics", name: "Electronics", icon: Laptop, color: "bg-blue-100 text-blue-600", items: "12,450" },
-  { id: "fashion", name: "Fashion", icon: Shirt, color: "bg-pink-100 text-pink-600", items: "45,200" },
-  { id: "grocery", name: "Fresh Grocery", icon: Carrot, color: "bg-green-100 text-green-600", items: "8,900" },
-  { id: "furniture", name: "Furniture", icon: Sofa, color: "bg-orange-100 text-orange-600", items: "3,200" },
-  { id: "audio", name: "Audio & Music", icon: Headphones, color: "bg-purple-100 text-purple-600", items: "1,850" },
-  { id: "health", name: "Health & Beauty", icon: HeartPulse, color: "bg-rose-100 text-rose-600", items: "15,300" },
-  { id: "jewelry", name: "Jewelry", icon: Sparkles, color: "bg-amber-100 text-amber-600", items: "4,100" },
-  { id: "books", name: "Books", icon: BookOpen, color: "bg-slate-100 text-slate-600", items: "22,000" },
+  { 
+    id: "electronics", 
+    name: "ইলেকট্রনিক্স ও গ্যাজেট", 
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80", 
+    items: "১২,৪৫০" 
+  },
+  { 
+    id: "fashion", 
+    name: "প্রিমিয়াম ফ্যাশন ও পোশাক", 
+    image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=500&q=80", 
+    items: "৪৫,২০০" 
+  },
+  { 
+    id: "grocery", 
+    name: "নিত্যপ্রয়োজনীয় ও কাঁচাবাজার", 
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&q=80", 
+    items: "৮,৯০০" 
+  },
+  { 
+    id: "furniture", 
+    name: "হোম ডেকর ও ফার্নিচার", 
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500&q=80", 
+    items: "৩,২০০" 
+  },
+  { 
+    id: "audio", 
+    name: "হেডফোন ও অডিও ডিভাইস", 
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", 
+    items: "১,৮৫০" 
+  },
+  { 
+    id: "health", 
+    name: "হেলথ, স্কিনকেয়ার ও বিউটি", 
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80", 
+    items: "১৫,৩০০" 
+  },
+  { 
+    id: "jewelry", 
+    name: "অলংকার ও জুয়েলারি কালেকশন", 
+    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=80", 
+    items: "৪,১০০" 
+  },
+  { 
+    id: "books", 
+    name: "বই, সাহিত্য ও স্টেশনরি", 
+    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&q=80", 
+    items: "২২,০০০" 
+  },
 ];
 
 export default function CategoriesPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="mb-10 text-center">
-        <h1 className="text-4xl font-extrabold text-slate-900 mb-4">Explore All Categories</h1>
-        <p className="text-slate-500 max-w-2xl mx-auto">Browse through our extensive catalog of verified products across thousands of subcategories.</p>
+    <div className="container mx-auto px-4 py-16">
+      {/* Page Heading & Intro */}
+      <div className="mb-12 text-center">
+        <span className="text-xs font-bold uppercase tracking-widest text-[#D1A174] mb-2 block">
+          সব পণ্য এক জায়গায়
+        </span>
+        <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+          আমাদের ক্যাটাগরি সমূহ
+        </h1>
+        <p className="text-slate-500 max-w-xl mx-auto text-sm md:text-base font-medium">
+          আপনার প্রয়োজনীয় সব ভেরিফাইড প্রোডাক্ট খুঁজে নিন আমাদের হাজারো সাব-ক্যাটাগরি থেকে।
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* Grid Canvas for Image-based Categories */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {CATEGORIES.map((category, index) => (
           <motion.div
             key={category.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
+            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
           >
-            <Link href={`/search?q=${category.name}`} className="group flex flex-col items-center p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer">
-              <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${category.color}`}>
-                <category.icon className="w-10 h-10" />
+            <Link 
+              href={`/search?q=${encodeURIComponent(category.name)}`} 
+              className="group flex flex-col relative h-[280px] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-slate-100"
+            >
+              {/* Background Cover Image with Inner Zoom Layout */}
+              <div className="absolute inset-0 w-full h-full bg-slate-200">
+                <img 
+                  src={category.image} 
+                  alt={category.name} 
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-1">{category.name}</h3>
-              <p className="text-sm text-slate-400 font-medium">{category.items} Items</p>
+
+              {/* Dynamic Gradient Mask Filter for High Contrast Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent transition-opacity duration-300 group-hover:via-slate-950/50" />
+
+              {/* Text Layer content alignment at the bottom */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 z-10">
+                <h3 className="text-lg font-bold text-white mb-1 tracking-tight group-hover:text-[#D1A174] transition-colors duration-300">
+                  {category.name}
+                </h3>
+                <p className="text-xs text-slate-300 font-medium tracking-wide">
+                  {category.items} টি পণ্য
+                </p>
+              </div>
             </Link>
           </motion.div>
         ))}

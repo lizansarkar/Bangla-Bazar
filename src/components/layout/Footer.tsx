@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { Globe, Camera, Video, MessageCircle, MapPin, Phone, Mail, Clock, ChevronRight } from "lucide-react";
+import {
+  Globe,
+  Camera,
+  Video,
+  MessageCircle,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  ChevronRight,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,9 +18,18 @@ export function Footer() {
         <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand Column */}
           <div className="space-y-5">
-            <h3 className="text-2xl font-bold text-primary">বাংলাবাজার</h3>
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center space-x-2">
+                <img
+                  src="/logo.png"
+                  alt="Bangla Bazar Logo"
+                  className="h-6 md:h-12 w-auto"
+                />
+              </Link>
+            </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। আমরা নিশ্চিত করি মানসম্মত পণ্য, নিরাপদ লেনদেন ও দ্রুত ডেলিভারি।
+              বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। আমরা নিশ্চিত করি মানসম্মত
+              পণ্য, নিরাপদ লেনদেন ও দ্রুত ডেলিভারি।
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
@@ -46,7 +65,9 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">দ্রুত লিংক</h4>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">
+              দ্রুত লিংক
+            </h4>
             <ul className="space-y-3">
               {[
                 { label: "হোম", href: "/" },
@@ -70,7 +91,9 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">গ্রাহক সেবা</h4>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">
+              গ্রাহক সেবা
+            </h4>
             <ul className="space-y-3">
               {[
                 { label: "অর্ডার ট্র্যাক করুন", href: "/track" },
@@ -93,7 +116,9 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">যোগাযোগ</h4>
+            <h4 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">
+              যোগাযোগ
+            </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -103,13 +128,19 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <a href="tel:+8801700000000" className="text-sm text-slate-400 hover:text-primary transition-colors">
+                <a
+                  href="tel:+8801700000000"
+                  className="text-sm text-slate-400 hover:text-primary transition-colors"
+                >
                   +৮৮০ ১৭০০-০০০০০০
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <a href="mailto:support@banglabazar.com" className="text-sm text-slate-400 hover:text-primary transition-colors">
+                <a
+                  href="mailto:support@banglabazar.com"
+                  className="text-sm text-slate-400 hover:text-primary transition-colors"
+                >
                   support@banglabazar.com
                 </a>
               </li>
@@ -129,7 +160,9 @@ export function Footer() {
             © {new Date().getFullYear()} বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।
           </p>
           <div className="flex items-center gap-3">
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider">আমরা গ্রহণ করি</span>
+            <span className="text-[10px] text-slate-500 uppercase tracking-wider">
+              আমরা গ্রহণ করি
+            </span>
             <div className="flex items-center gap-2">
               <div className="h-8 px-3 bg-white/10 rounded-md flex items-center justify-center text-xs font-bold text-pink-400">
                 bKash

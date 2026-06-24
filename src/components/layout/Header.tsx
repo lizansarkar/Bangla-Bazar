@@ -54,7 +54,7 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 w-full border-b transition-all duration-300",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md shadow-sm border-border/80" 
+          ? "bg-background/80 backdrop-blur-md" 
           : "bg-background border-transparent"
       )}
     >
@@ -63,7 +63,7 @@ export function Header() {
         {/* Left Side: Brand Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold tracking-tight text-[#D1A174] cursor-pointer">BanglaBazar</span>
+            <img src="/logo.png" alt="Bangla Bazar Logo" className="h-6 md:h-12 w-auto" />
           </Link>
         </div>
         

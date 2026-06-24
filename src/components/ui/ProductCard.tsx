@@ -58,7 +58,7 @@ export function ProductCard({
       className="group relative flex flex-col w-full h-full cursor-pointer bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:bg-primary/[0.03] transition-all duration-300 overflow-hidden"
     >
       {/* Image Frame */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden" style={{ backgroundColor: "#BACCCF" }}>
+      <div className="relative aspect-[3/2] w-full overflow-hidden" style={{ backgroundColor: "#BACCCF" }}>
         {/* Wishlist Icon */}
         <div className="absolute top-3 right-3 z-10">
           <motion.button
