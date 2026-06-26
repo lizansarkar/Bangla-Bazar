@@ -54,7 +54,7 @@ export const products: Product[] = [
     price: 8.99,
     rating: 4.3,
     reviews: 234,
-    image: "https://images.unsplash.com/photo-1596097635121-14b63b7a0c19?w=500&q=80",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5fFYlz4Luv7ywsn9vkMp07pHL3HtwEL82mp4U2e4Bqw&s=10",
     category: CATEGORIES.মুদিখানা_ফল_ও_সবজি,
     subcategory: "সবজি",
   },
@@ -130,7 +130,6 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=500&q=80",
     category: CATEGORIES.স্ন্যাকস_ক্যান্ডি_ও_চকলেট,
     subcategory: "চকলেট",
-    
     tag: "সেরা বিক্রিত",
     discount: 25,
   },
