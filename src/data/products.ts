@@ -93,6 +93,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=500&q=80",
     category: CATEGORIES.রান্নার_সরঞ্জাম_ও_গৃহস্থালি,
     subcategory: "কুকওয়্যার",
+    tag: "সাপ্তাহিক সেরা",
     discount: 23,
   },
   {
@@ -129,6 +130,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=500&q=80",
     category: CATEGORIES.স্ন্যাকস_ক্যান্ডি_ও_চকলেট,
     subcategory: "চকলেট",
+    
     tag: "সেরা বিক্রিত",
     discount: 25,
   },
@@ -224,6 +226,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&q=80",
     category: CATEGORIES.পুরুষ_মহিলা_ও_শিশু_ফ্যাশন,
     subcategory: "পুরুষদের পোশাক",
+    tag: "সাপ্তাহিক সেরা",
     discount: 27,
   },
   {
